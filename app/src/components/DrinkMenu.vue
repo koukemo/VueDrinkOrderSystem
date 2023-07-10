@@ -1,10 +1,17 @@
 <template>
-    <div>
-        <h2>ドリンクメニュー</h2>
-        <ul>
-            <li v-for="drink in drinks" :key="drink.id" @click="selectDrink(drink)">{{ drink.name }}</li>
-        </ul>
+  <div>
+    <h2>ドリンクメニュー</h2>
+    <div class="d-flex flex-column align-items-center">
+      <button
+        v-for="(drink, index) in drinks"
+        :key="drink.id"
+        :class="index % 2 === 0 ? 'btn btn-primary btn-block mb-3' : 'btn btn-secondary btn-block mb-3'"
+        @click="confirmOrder(drink)"
+      >
+        {{ drink.name }}
+      </button>
     </div>
+  </div>
 </template>
 
 <script>
@@ -21,8 +28,10 @@ export default {
         };
     },
     methods: {
-        selectDrink(drink) {
-            print("selected:" + drink.name)
+        confirmOrder(drink) {
+            if (confirm(`${drink.name}を注文しますか？`)) {
+                alert(`${drink.name}を注文しました`);
+            }
         }
     }
 }

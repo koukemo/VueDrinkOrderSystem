@@ -23,7 +23,7 @@ export default {
     },
     methods: {
         placeOrder() {
-            print(this.selectedDrink)
+            console.log("selected drink: " + this.selectedDrink);
         }
     }
 };
