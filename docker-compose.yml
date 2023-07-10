@@ -12,3 +12,25 @@ services:
       - ./app:/app
     tty: true
     stdin_open: true
+
+  server:
+    build:
+      context: .
+      dockerfile: ./server/Dockerfile
+    container_name: server
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/app
+    tty: true
+    stdin_open: true
+
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    container_name: db
+    volumes:
+      - ./db-data:/data
+    environment:
+      - SQLITE_DATABASE=server/mydatabase.db

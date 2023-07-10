@@ -31,8 +31,36 @@ export default {
         confirmOrder(drink) {
             if (confirm(`${drink.name}を注文しますか？`)) {
                 alert(`${drink.name}を注文しました`);
+                this.selectDrink(drink)
             }
+        },
+
+        selectDrink(drink) {
+            const order = {
+            drink_id: drink.id,
+            drink_name: drink.name
+        };
+
+        // バックエンドのAPIに注文データを送信
+        fetch('http://localhost:3000/api/orders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(order)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+                // 注文成功の処理などを行う
+            })
+            .catch(error => {
+                console.error(error);
+                // エラーハンドリングなどを行う
+            });
         }
     }
+
+    
 }
 </script>
